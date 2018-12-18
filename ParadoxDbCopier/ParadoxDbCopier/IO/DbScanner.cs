@@ -12,6 +12,11 @@ namespace ParadoxDbCopier.IO
 
     internal class DbScanner
     {
+        /// <summary>
+        /// Scans for data tables within a folder
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <returns></returns>
         public IEnumerable<DataTable> GetDatabaseTables(string folderPath)
         {
             return Directory.GetFiles(folderPath, "*.db").Select(filePath =>
@@ -22,6 +27,12 @@ namespace ParadoxDbCopier.IO
                 });
         }
 
+        /// <summary>
+        /// Converts table names into DataTables
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="dataTableNames"></param>
+        /// <returns></returns>
         public IEnumerable<DataTable> GetDatabaseTables(string folderPath, IEnumerable<string> dataTableNames)
         {
             var resultDataTables = new List<DataTable>();

@@ -30,6 +30,10 @@ namespace ParadoxDbCopier.IO
             _addRefreshDateTimeColumn = addRefreshDateTimeColumn;
         }
 
+        /// <summary>
+        /// Scans an input folder and iterates on each table file to export it into a output CSV, handles errors gracefully
+        /// </summary>
+        /// <param name="inputFolder"></param>
         public void WriteAll(string inputFolder)
         {
             var dataTables = _tableFilterList != null
@@ -54,6 +58,10 @@ namespace ParadoxDbCopier.IO
             if (_hasFailures) throw new Exception("Error copy paradox tables, at least one error.", innerException);
         }
 
+        /// <summary>
+        /// For a give DataTable this method output a CSV file with all its content
+        /// </summary>
+        /// <param name="table"></param>
         private void WriteTable(DataTable table)
         {
             var paradoxTable = new ParadoxTable(table.TableFolderPath, table.TableName);

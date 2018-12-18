@@ -11,7 +11,8 @@ namespace ParadoxDbCopier
         {
             if (args.Length < 2)
             {
-                Console.Error.WriteLine("Argument Error - Usage: ParadoxDbCopier [InputFolder] [OutputFolder] [Optional comma separated Table list]");
+                Console.Error.WriteLine(
+                    "Argument Error - Usage: ParadoxDbCopier [InputFolder] [OutputFolder] [Optional comma separated Table list]");
                 return;
             }
 
@@ -21,7 +22,9 @@ namespace ParadoxDbCopier
             var tableFilterList = args.Length > 2 ? args[2].Split(',').ToList() : null;
 
             var scanner = new DbScanner();
-            var writer = new DbWriter(scanner, outputFolder, tableFilterList, ";", true, true);
+            var writer = new DbWriter(scanner, outputFolder, tableFilterList, columnSeparator: ";",
+                outputHeaderLine: true,
+                addRefreshDateTimeColumn: true);
 
             writer.WriteAll(inputFolder);
         }
