@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParadoxDbCopier", "ParadoxDbCopier\ParadoxDbCopier.csproj", "{041558A8-3720-429F-B742-52CD3A88CFA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParadoxReader", "ParadoxReader", "{435FD687-60BD-40D3-93B5-5A724E7699C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParadoxReader", "ParadoxReader\ParadoxReader.csproj", "{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Debug|x86.Build.0 = Debug|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Release|x86.ActiveCfg = Release|Any CPU
+		{041558A8-3720-429F-B742-52CD3A88CFA3}.Release|x86.Build.0 = Release|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D3ADF35-FE64-4BA5-A3BC-955B912ADA9B} = {435FD687-60BD-40D3-93B5-5A724E7699C7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DC037DE-67AE-4EC2-8E7C-B83D9BFE4254}
+	EndGlobalSection
+EndGlobal
