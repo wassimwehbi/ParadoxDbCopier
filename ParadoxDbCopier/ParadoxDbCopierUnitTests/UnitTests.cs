@@ -2,28 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParadoxDbCopier.IO;
-using ParadoxDbCopierTests.data;
+using ParadoxDbCopierUnitTests.data;
 using ParadoxReader;
+using Xunit;
 
-namespace ParadoxDbCopierTests
+namespace ParadoxDbCopierUnitTests
 {
-    [TestClass]
     public class UnitTests
     {
-        public TestContext TestContext { get; set; }
-
         private void AssertAreEqual(List<DataTable> expectedDataTables, List<DataTable> actualDataTables)
         {
-            Assert.AreEqual(expectedDataTables.Count, actualDataTables.Count);
+            Assert.Equal(expectedDataTables.Count, actualDataTables.Count);
 
-            foreach (var table in expectedDataTables) Assert.IsTrue(actualDataTables.Contains(table));
+            foreach (var table in expectedDataTables) Assert.Contains(table, actualDataTables);
         }
 
         private DirectoryInfo CreateTestDirectoryWithTables(out List<DataTable> dataTables)
         {
-            var testDirectory = Directory.CreateDirectory(TestContext.TestName + DateTime.UtcNow.Ticks);
+            var testDirectory = Directory.CreateDirectory("CreateTestDirectoryWithTables" + DateTime.UtcNow.Ticks);
             dataTables = new List<DataTable>();
 
             for (var i = 0; i < 10; ++i)
@@ -31,16 +28,14 @@ namespace ParadoxDbCopierTests
                 var newTable = new DataTable
                 {
                     TableFolderPath = testDirectory.FullName,
-                    TableName = DateTime.UtcNow.Ticks.ToString() + "_" + i 
+                    TableName = DateTime.UtcNow.Ticks + "_" + i
                 };
 
                 dataTables.Add(newTable);
             }
 
             foreach (var table in dataTables)
-            {
                 File.WriteAllBytes(Path.Combine(table.TableFolderPath, table.TableName + ".db"), Resources.zakazky);
-            }
 
             return testDirectory;
         }
@@ -51,44 +46,25 @@ namespace ParadoxDbCopierTests
 
             foreach (var table in dataTables)
             {
-                var tablePath = Path.Combine(table.TableFolderPath, table.TableName);
-                Assert.IsTrue(File.Exists(tablePath));
+                var tablePath = Path.Combine(table.TableFolderPath, table.TableName + ".db");
+                Assert.True(File.Exists(tablePath));
 
                 var paradoxTable = new ParadoxTable(table.TableFolderPath, table.TableName);
                 var csvTableRecords = File.ReadAllLines(Path.Combine(outputDirectory, table.TableName + ".csv"));
 
                 // very basic check for now
-                Assert.AreEqual(paradoxTable.RecordCount, csvTableRecords.Length,
-                    "The number of records written is not equal to the number of records read");
+                Assert.Equal(paradoxTable.RecordCount, csvTableRecords.Length);
 
                 foreach (var record in csvTableRecords)
                 {
                     var columnCount = record.Split(';').Length;
 
-                    Assert.AreEqual(paradoxTable.FieldCount, columnCount,
-                        "The number of columns writtens is not equal to the number of records read");
+                    Assert.Equal(paradoxTable.FieldCount, columnCount);
                 }
             }
         }
 
-        [TestMethod]
-        public void DbScannerFolderScanTest()
-        {
-            // GIVEN
-
-            var testDirectory = CreateTestDirectoryWithTables(out var dataTables);
-
-            // WHEN
-
-            var scanner = new DbScanner();
-            var actualDataTables = scanner.GetDatabaseTables(testDirectory.FullName).ToList();
-
-            // THEN
-
-            AssertAreEqual(dataTables, actualDataTables);
-        }
-
-        [TestMethod]
+        [Fact]
         public void DbScannerFilteredListTest()
         {
             // GIVEN
@@ -108,7 +84,24 @@ namespace ParadoxDbCopierTests
             AssertAreEqual(filteredTableList, actualDataTables);
         }
 
-        [TestMethod]
+        [Fact]
+        public void DbScannerFolderScanTest()
+        {
+            // GIVEN
+
+            var testDirectory = CreateTestDirectoryWithTables(out var dataTables);
+
+            // WHEN
+
+            var scanner = new DbScanner();
+            var actualDataTables = scanner.GetDatabaseTables(testDirectory.FullName).ToList();
+
+            // THEN
+
+            AssertAreEqual(dataTables, actualDataTables);
+        }
+
+        [Fact]
         public void DbWriterBasicTest()
         {
             // GIVEN
@@ -120,7 +113,7 @@ namespace ParadoxDbCopierTests
             // WHEN
 
             var dbWriter = new DbWriter(new DbScanner(), outputDirectory, null, ";",
-                true, false);
+                false, false);
             dbWriter.WriteAll(inputDirectory);
 
             // THEN

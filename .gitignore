@@ -13,3 +13,8 @@
 /ParadoxDbCopier/ParadoxDbCopier/bin/Debug/app.publish
 /ParadoxDbCopier/ParadoxDbCopier/bin/Debug
 /ParadoxDbCopier/ParadoxDbCopier/obj
+/ParadoxDbCopier/ParadoxDbCopierUnitTests/bin/Debug/netcoreapp2.0
+/ParadoxDbCopier/ParadoxDbCopierUnitTests/obj
+/ParadoxDbCopier/ParadoxDbCopier/bin/Release
+/ParadoxDbCopier/ParadoxDbCopierUnitTests/bin/Release/netcoreapp2.0
+/ParadoxDbCopier/ParadoxReader/bin/Release
