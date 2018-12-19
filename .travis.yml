@@ -4,5 +4,5 @@ install:
   - nuget restore ./ParadoxDbCopier/ParadoxDbCopier.sln
   - nuget install xunit.runner.console -Version 2.0 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release ParadoxDbCopier.sln
+  - xbuild /p:Configuration=Release ./ParadoxDbCopier/ParadoxDbCopier.sln
   - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./ParadoxDbCopier/ParadoxDbCopierUnitTests/bin/Release/netcoreapp2.0/ParadoxDbCopierUnitTests.dll
