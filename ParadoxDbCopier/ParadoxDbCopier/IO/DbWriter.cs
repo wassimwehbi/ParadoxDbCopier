@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using ParadoxReader;
 
 namespace ParadoxDbCopier.IO
 {
-    internal class DbWriter
+    public class DbWriter
     {
         private readonly bool _addRefreshDateTimeColumn;
         private readonly string _columnSeparator;
@@ -18,7 +19,7 @@ namespace ParadoxDbCopier.IO
         private bool _hasFailures;
 
 
-        internal DbWriter(DbScanner scanner, string outputFolder, List<string> tableFilterList, string columnSeparator,
+        public DbWriter(DbScanner scanner, string outputFolder, List<string> tableFilterList, string columnSeparator,
             bool outputHeaderLine = true,
             bool addRefreshDateTimeColumn = false)
         {
@@ -82,7 +83,7 @@ namespace ParadoxDbCopier.IO
 
             foreach (ParadoxRecord record in paradoxTable.Enumerate())
             {
-                var outputLine = string.Join(_columnSeparator, record.DataValues);
+                var outputLine = string.Join(_columnSeparator, record.DataValues.Select(Clean));
 
                 if (_addRefreshDateTimeColumn)
                     outputLine = string.Join(_columnSeparator, outputLine, refreshDateTime);
@@ -91,6 +92,11 @@ namespace ParadoxDbCopier.IO
             }
 
             File.WriteAllText(outputFilePath, builder.ToString());
+        }
+
+        private object Clean(object dataValue)
+        {
+            return dataValue is string s ? s.Replace(";", ".") : dataValue;
         }
     }
 }

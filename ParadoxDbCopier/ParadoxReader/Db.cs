@@ -238,6 +238,12 @@ namespace ParadoxReader
             int stringLength = Array.FindIndex(data, from, b => b == 0) - from;
             if (stringLength > maxLength)
                 stringLength = maxLength;
+
+            // Bugfix
+            if (stringLength < 0)
+                stringLength = Math.Min(data.GetLength(0), maxLength);
+            // End
+
             return Encoding.Default.GetString(data, from, stringLength);
         }
 

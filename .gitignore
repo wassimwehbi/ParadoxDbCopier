@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ParadoxDbCopier/ParadoxReader/bin/Debug
+/ParadoxDbCopier/ParadoxReader/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/ParadoxDbCopier/ParadoxReader/obj
+/ParadoxDbCopier/packages
+/.vs
+/ParadoxDbCopier/.vs/ParadoxDbCopier/v15
+/ParadoxDbCopier/ParadoxDbCopierTests/bin/Debug
+/ParadoxDbCopier/ParadoxDbCopierTests/obj
+/ParadoxDbCopier/ParadoxDbCopier/bin/Debug/app.publish
+/ParadoxDbCopier/ParadoxDbCopier/bin/Debug
+/ParadoxDbCopier/ParadoxDbCopier/obj

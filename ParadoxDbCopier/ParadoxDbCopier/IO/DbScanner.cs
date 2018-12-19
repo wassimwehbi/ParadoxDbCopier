@@ -4,16 +4,35 @@ using System.Linq;
 
 namespace ParadoxDbCopier.IO
 {
-    internal class DataTable
+    public class DataTable
     {
         public string TableFolderPath { get; set; }
         public string TableName { get; set; }
+
+        public override bool Equals(object other)
+        {
+            return other is DataTable table && Equals(table);
+        }
+
+        protected bool Equals(DataTable other)
+        {
+            return string.Equals(TableFolderPath, other.TableFolderPath) && string.Equals(TableName, other.TableName);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((TableFolderPath != null ? TableFolderPath.GetHashCode() : 0) * 397) ^
+                       (TableName != null ? TableName.GetHashCode() : 0);
+            }
+        }
     }
 
-    internal class DbScanner
+    public class DbScanner
     {
         /// <summary>
-        /// Scans for data tables within a folder
+        ///     Scans for data tables within a folder
         /// </summary>
         /// <param name="folderPath"></param>
         /// <returns></returns>
@@ -28,7 +47,7 @@ namespace ParadoxDbCopier.IO
         }
 
         /// <summary>
-        /// Converts table names into DataTables
+        ///     Converts table names into DataTables
         /// </summary>
         /// <param name="folderPath"></param>
         /// <param name="dataTableNames"></param>
