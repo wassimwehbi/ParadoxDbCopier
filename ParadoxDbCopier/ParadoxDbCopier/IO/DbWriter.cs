@@ -7,6 +7,15 @@ using ParadoxReader;
 
 namespace ParadoxDbCopier.IO
 {
+    public class DbWriterParameters
+    {
+        public DbScanner Scanner { get; set; }
+        public string OutputFolder { get; set; }
+        public List<string> TableFilterList { get; set; }
+        public string ColumnSeparator { get; set; }
+        public bool OutputHeaderLine { get; set; }
+        public bool AddRefreshDateTimeColumn { get; set; }
+    }
     public class DbWriter
     {
         private readonly bool _addRefreshDateTimeColumn;
@@ -19,16 +28,14 @@ namespace ParadoxDbCopier.IO
         private bool _hasFailures;
 
 
-        public DbWriter(DbScanner scanner, string outputFolder, List<string> tableFilterList, string columnSeparator,
-            bool outputHeaderLine = true,
-            bool addRefreshDateTimeColumn = false)
+        public DbWriter(DbWriterParameters parameters)
         {
-            _outputFolder = outputFolder;
-            _tableFilterList = tableFilterList;
-            _columnSeparator = columnSeparator;
-            _dbScanner = scanner;
-            _outputHeaderLine = outputHeaderLine;
-            _addRefreshDateTimeColumn = addRefreshDateTimeColumn;
+            _outputFolder = parameters.OutputFolder;
+            _tableFilterList = parameters.TableFilterList;
+            _columnSeparator = parameters.ColumnSeparator;
+            _dbScanner = parameters.Scanner;
+            _outputHeaderLine = parameters.OutputHeaderLine;
+            _addRefreshDateTimeColumn = parameters.AddRefreshDateTimeColumn;
         }
 
         /// <summary>
@@ -96,7 +103,7 @@ namespace ParadoxDbCopier.IO
 
         private object Clean(object dataValue)
         {
-            return dataValue is string s ? s.Replace(";", ".") : dataValue;
+            return dataValue is string s ? s.Replace(_columnSeparator, " ") : dataValue;
         }
     }
 }

@@ -109,11 +109,19 @@ namespace ParadoxDbCopierUnitTests
             var testDirectoryInfo = CreateTestDirectoryWithTables(out var _);
             var inputDirectory = testDirectoryInfo.FullName;
             var outputDirectory = Path.Combine(inputDirectory, "output");
+            var writerParameters = new DbWriterParameters()
+            {
+                Scanner = new DbScanner(),
+                OutputFolder = outputDirectory,
+                OutputHeaderLine = false,
+                ColumnSeparator = ";",
+                AddRefreshDateTimeColumn = false,
+                TableFilterList = null
+            };
 
             // WHEN
 
-            var dbWriter = new DbWriter(new DbScanner(), outputDirectory, null, ";",
-                false, false);
+            var dbWriter = new DbWriter(writerParameters);
             dbWriter.WriteAll(inputDirectory);
 
             // THEN
