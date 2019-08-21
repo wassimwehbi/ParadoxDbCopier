@@ -30,7 +30,9 @@ namespace ParadoxDbCopier
             string outputFolder;
             List<string> tableFilterList = null;
 
-            if (StartedFromGui)
+            bool useConfiguration = Convert.ToBoolean(ConfigurationManager.AppSettings["UseConfiguration"]);
+
+            if (StartedFromGui || useConfiguration)
             {
                 inputFolder = ConfigurationManager.AppSettings["InputFolder"];
                 outputFolder = ConfigurationManager.AppSettings["OutputFolder"];
