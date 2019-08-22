@@ -93,11 +93,24 @@ namespace ParadoxReader
         private int[] fieldNamePtrArray;
         public string[] FieldNames { get; private set; }
 
+        private readonly int EncodingCodePage;
         private readonly Stream stream;
         private readonly BinaryReader reader;
 
         public ParadoxFile(string fileName) : this(new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
         {
+            // check if the Windows-1256 encoding is enabled before using it, this fixes the unit tests that run on .net core and doesn't include this encoding.
+            try
+            {
+                Encoding.GetEncoding(1256);
+                EncodingCodePage = 1256;
+            }
+            catch
+            {
+                // default on UTF-8
+                EncodingCodePage = 65001;
+            }
+
         }
 
         public ParadoxFile(Stream stream)
@@ -244,7 +257,7 @@ namespace ParadoxReader
                 stringLength = Math.Min(data.GetLength(0), maxLength);
             // End
 
-            return Encoding.Default.GetString(data, from, stringLength);
+            return Encoding.GetEncoding(EncodingCodePage).GetString(data, from, stringLength);
         }
 
         public string GetStringFromMemo(byte[] data, int from, int size)
